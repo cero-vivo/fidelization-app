@@ -10,6 +10,7 @@ export const registerValidationsGateway: IRegisterValidationGateway = {
 }
 
 export const registerGateway = (): IRegisterActions => {
+
     return {
         register: async (credentials: IRegisterCredential) => {
             try {
