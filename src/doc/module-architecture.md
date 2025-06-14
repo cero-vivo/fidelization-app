@@ -4,7 +4,7 @@ Cada módulo encapsula un conjunto coherente de funcionalidades, organizadas en 
 
 La estructura busca mantener el dominio del negocio aislado de detalles de infraestructura como frameworks, bases de datos o servicios externos, favoreciendo una evolución controlada del sistema.
 
----
+<img src="./images/layers.png" alt="Diagrama de Capas" width="40%" />
 
 #### **Estructura del Módulo**
 ```
@@ -27,9 +27,12 @@ src/modules/<module-name>/
 │   │   └── I<ModuleName>Gateway.ts
 ```
 
----
-
 ### **Componentes Principales**
+
+<section>
+  <img src="./images/flow.png" alt="Flujo de Datos" width="30%" />
+  <p>Representa el flujo de datos desde el controlador hacia las capas internas del módulo.</p>
+</section>
 
 #### **1. Model Layer**
 - **I<ModuleName>Actions.ts**  
@@ -349,25 +352,6 @@ La arquitectura está diseñada para ser extensible:
 Esta estructura asegura una separación clara de responsabilidades, facilitando el mantenimiento y la escalabilidad del módulo.
 
 ### **Imágenes**
-A continuación se presentan las imágenes relacionadas con la arquitectura de módulos:
 
-<section>
-  <p><strong>Diagrama de Capas</strong></p>
-  <img src="./images/layers.png" alt="Diagrama de Capas" width="60%" />
-</section>
-
-<section>
-  <p><strong>Flujo de Datos</strong></p>
-  <img src="./images/flow.png" alt="Flujo de Datos" width="60%" />
-  <p>Representa el flujo de datos desde el controlador hacia las capas internas del módulo.</p>
-</section>
-
-<section>
-  <p><strong>Responsabilidad</strong></p>
-  <img src="./images/responsability.png" alt="Responsabilidad" width="60%" />
-</section>
-
-<section>
-  <p><strong>Beneficios</strong></p>
-  <img src="./images/benefits.png" alt="Beneficios" width="60%" />
-</section>
+  <img src="./images/responsability.png" alt="Responsabilidad" width="40%" />
+  <img src="./images/benefits.png" alt="Beneficios" width="40%" />
