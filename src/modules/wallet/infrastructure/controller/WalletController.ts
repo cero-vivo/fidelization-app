@@ -1,20 +1,22 @@
 import Elysia, { t } from "elysia";
-import { Routes } from "../../../../routes/routes";
 import { IWalletGateway } from "../gateways/IWalletGateway";
 import { WalletControllerRoutes, WalletDepositBody, WalletTransferBody, WalletWithdrawBody } from "./IWalletController";
+import { WalletGateway } from "../gateways/WalletGateway";
+import { apiPath } from "../../../../config";
 
-export const WalletController: (gateway: IWalletGateway) => Partial<Elysia<Routes.WALLET_CONTROLLER>> = (gateway: IWalletGateway) => {
+const gateway: IWalletGateway = WalletGateway()
 
-	const walletController = new Elysia({ prefix: Routes.WALLET_CONTROLLER })
-
+export const walletController = new Elysia()
+	.group(`${apiPath}/wallet`, (app) => {
+		return app
 		.get(
-			WalletControllerRoutes.BALANCE,
+			`${WalletControllerRoutes.BALANCE}/:userId`,
 			async ({ params }) => {
 				const { userId } = params;
 				return await gateway.getBalance(userId);
 			}
 		)
-
+	
 		.post(
 			WalletControllerRoutes.DEPOSIT,
 			async ({ body }) => {
@@ -56,6 +58,4 @@ export const WalletController: (gateway: IWalletGateway) => Partial<Elysia<Route
 			const { userId } = params;
 			return await gateway.getTransactionHistory(userId);
 		});
-
-	return walletController;
-}
+	})

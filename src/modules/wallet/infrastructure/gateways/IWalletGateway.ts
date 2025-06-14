@@ -1,5 +1,5 @@
 export interface IWalletGateway {
-    getBalance: (userId: string) => Promise<number>;
+    getBalance: (userId: string) => Promise<{balance: number}>;
     deposit: (userId: string, amount: number) => Promise<void>;
     withdraw: (userId: string, amount: number) => Promise<void>;
     transfer: (fromUserId: string, toUserId: string, amount: number) => Promise<void>;

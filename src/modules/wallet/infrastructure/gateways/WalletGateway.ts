@@ -2,12 +2,12 @@ import { IWalletGateway } from "./IWalletGateway";
 
 export const WalletGateway: () => IWalletGateway = () => {
     return {
-        getBalance: async (userId: string): Promise<number> => {
+        getBalance: async (userId: string): Promise<{balance: number}> => {
             try {
-                const resBalance = await new Promise<number>((resolve) => {
+                const resBalance = await new Promise<{balance: number}>((resolve) => {
                     setTimeout(() => {
                         const balance = 1000;
-                        resolve(balance);
+                        resolve({balance});
                     }, 1000);
                 });
                 return resBalance;

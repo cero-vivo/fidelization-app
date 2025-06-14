@@ -1,7 +1,9 @@
 import { Static, t } from "elysia";
+import { apiURL } from "../../../../config";
+import { Routes } from "../../../../routes/routes";
 
 export enum WalletControllerRoutes {
-    BALANCE = "/balance/:userId",
+    BALANCE = `/balance`,
     DEPOSIT = "/deposit",
     WITHDRAW = "/withdraw/:userId",
     TRANSFER = "/transfer",
