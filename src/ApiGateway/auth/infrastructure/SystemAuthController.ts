@@ -13,7 +13,7 @@ const systemToken = SystemJwtToken({
 
 const tokenOptions: JWTOption = {
     secret: systemToken?.actions?.getters?.getSecret?.() || "",
-    expiresIn: "15m",
+    exp: systemToken?.actions?.getters?.getExpiresIn?.(),
     algorithm: systemToken.actions?.getters.getAlgorithm?.(),
 };
 
