@@ -1,4 +1,4 @@
-import { ISystemRoles } from "./ISystemRoles";
+import { ISystemApiKeyActions } from "../actions/ISystemApiKeyActions";
 
 export interface ISystemApiKey {
     key: string;

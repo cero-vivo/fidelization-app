@@ -1,6 +1,6 @@
+import Elysia from "elysia";
 import jwt, { JWTOption } from "@elysiajs/jwt";
 import { SystemJwtToken } from "../application/SystemJwtTokenActions";
-import Elysia from "elysia";
 import { SystemAuthControllerRoutes } from "./ISystemAuthControllerRoutes";
 import { createApiKeyService } from "./SystemApiKeyService";
 import { Routes } from "../../../routes/routes";
