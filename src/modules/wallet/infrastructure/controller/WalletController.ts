@@ -7,7 +7,7 @@ import { apiPath } from "../../../../config";
 const gateway: IWalletGateway = WalletGateway()
 
 export const walletController = new Elysia()
-	.group(`${apiPath}/wallet`, (app) => {
+	.group(`/wallet`, (app) => {
 		return app
 		.get(
 			`${WalletControllerRoutes.BALANCE}/:userId`,

@@ -1,11 +1,13 @@
 import { Elysia } from "elysia";
+import { swagger } from '@elysiajs/swagger'
 import { registerController } from "./modules/auth/infrastructure/register.controller";
-import { WalletGateway } from "./modules/wallet/infrastructure/gateways/WalletGateway";
 import { walletController } from "./modules/wallet/infrastructure/controller/WalletController";
-import { apiURL } from "./config";
+import { apiPath, PORT } from "./config";
+import { systemAuthController } from "./ApiGateway/auth/infrastructure/SystemAuthController";
 
-const app = new Elysia()
+const app = new Elysia({ prefix: apiPath })
+	.use(swagger())
+	.use(systemAuthController)
 	.use(registerController)
 	.use(walletController)
-	.get("/", () => "Hello Elysia")
-	.listen(3000);
+	.listen(PORT);

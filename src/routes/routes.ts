@@ -1,3 +1,4 @@
 export enum Routes {
-    WALLET_CONTROLLER = "/wallet",
+    SYSTEM_AUTH = "/system/auth",
+    WALLET_CONTROLLER = "/wallet"
 }

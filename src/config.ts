@@ -1,5 +1,7 @@
+
+export const PORT = 3000;
 // Base de la API (host y puerto)
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "http://localhost:" + PORT;
 
 // Estructura de path de la API REST
 export const API_SUBDOMAIN = "api";
