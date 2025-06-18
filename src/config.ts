@@ -7,6 +7,7 @@ export const BASE_URL = "http://localhost:" + PORT;
 export const API_SUBDOMAIN = "api";
 export const APP_DOMAIN = "corazonesdev";
 export const API_VERSION = "v1";
+export const DB_URL = ""
 
 // URL completa para fetch desde cliente/test
 export const apiURL = `${BASE_URL}/${API_SUBDOMAIN}/${APP_DOMAIN}/${API_VERSION}`;
