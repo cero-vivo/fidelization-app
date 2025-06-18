@@ -21,7 +21,7 @@ const systemRefreshToken = SystemJwtToken({
 
 const tokenOptions: JWTOption = {
     //@ts-ignore
-    name: "accessJwt",
+    name: process.env.JWT_ACCESS_NAME,
     secret: systemToken?.actions?.getters?.getSecret?.() || "",
     exp: systemToken?.actions?.getters?.getExpiresIn?.(),
     algorithm: systemToken.actions?.getters.getAlgorithm?.(),
@@ -29,7 +29,7 @@ const tokenOptions: JWTOption = {
 
 const refreshTokenOptions: JWTOption = {
     //@ts-ignore
-    name: "refreshJwt",
+    name: process.env.JWT_REFRESH_NAME,
     secret: systemRefreshToken?.actions?.getters?.getSecret?.() || "",
     exp: systemRefreshToken?.actions?.getters?.getExpiresIn?.(),
     algorithm: systemRefreshToken.actions?.getters.getAlgorithm?.(),
@@ -55,12 +55,12 @@ export const systemAuthController = new Elysia({ prefix: Routes.SYSTEM_AUTH })
             systemRefreshToken.actions?.update({ role: isValid.role })
 
             const token = await accessJwt.sign({
-                name: "accessJwt",
+                name: process.env.JWT_ACCESS_NAME,
                 exp: systemToken?.actions?.getters?.getExpiresIn?.()
             });
 
             const refreshToken = await refreshJwt.sign({
-                name: "refreshJwt",
+                name: process.env.JWT_REFRESH_NAME,
                 exp: systemRefreshToken?.actions?.getters?.getExpiresIn?.()
             });
 
@@ -81,20 +81,21 @@ export const systemAuthController = new Elysia({ prefix: Routes.SYSTEM_AUTH })
     })
     .post(SystemAuthControllerRoutes.POST_REFRESH_AUTH_TOKEN, async ({ refreshJwt, accessJwt, status, headers }) => {
         try {
-            const refreshTokenHeader = headers?.["authorization"]
+            const refreshTokenHeader = headers?.[process.env.JWT_TOKEN_HEADER_KEY||""] 
+
             if (!refreshTokenHeader) return status(401, new ApiResponseBuilder("401", "Refresh token not found").getError())
             const res = await refreshJwt.verify(refreshTokenHeader);
 
             if (!res) return status(403, new ApiResponseBuilder("403", "Expired refresh token").getError())
-            if (res?.name !== "refreshJwt") return status(403, new ApiResponseBuilder("403", "Invalid refresh token").getError())
+            if (res?.name !== process.env.JWT_REFRESH_NAME) return status(403, new ApiResponseBuilder("403", "Invalid refresh token").getError())
 
             const token = await accessJwt.sign({
-                name: "accessJwt",
+                name: process.env.JWT_ACCESS_NAME,
                 exp: systemToken?.actions?.getters?.getExpiresIn?.()
             });
 
             const refreshToken = await refreshJwt.sign({
-                name: "refreshJwt",
+                name: process.env.JWT_REFRESH_NAME,
                 exp: systemRefreshToken?.actions?.getters?.getExpiresIn?.()
             });
 
