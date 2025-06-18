@@ -21,7 +21,7 @@ export const createApiKeyService = (): ISystemApiKeyActions => {
                             });
                         } else {
                             resolve({
-                                isValid: true,
+                                isValid: false,
                                 role: ISystemRoles.GUEST
                             });
                         }

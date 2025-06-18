@@ -32,19 +32,18 @@ const refreshTokenOptions: JWTOption = {
 export const systemAuthController = new Elysia({prefix: Routes.SYSTEM_AUTH})
     .use(jwt(tokenOptions))
     .use(jwt(refreshTokenOptions))
-    .post(SystemAuthControllerRoutes.POST_GET_AUTH_TOKEN, async ({ jwt, headers }) => {
+    .post(SystemAuthControllerRoutes.POST_GET_AUTH_TOKEN, async ({ jwt, headers, status }) => {
         try {
 
             const apiKeyService = createApiKeyService();
 
             const apiKey = headers?.["x-api-key"];
 
-            if (!apiKey) return new ApiErrorBuilder("400","API Key is missing").getError();
+            if (!apiKey) return status(400, new ApiErrorBuilder("400","API Key is missing").getError())
 
             const isValid = await apiKeyService.isValid(apiKey);
-            console.log("🚀 ~ .post ~ isValid:", !isValid?.isValid)
             
-            if (!isValid?.isValid === false) return new ApiErrorBuilder("401","Invalid API Key").getError();
+            if (!isValid?.isValid) return status(401, new ApiErrorBuilder("401","Invalid API Key").getError());
 
             systemToken.actions?.update({ role: isValid.role })
             systemRefreshToken.actions?.update({ role: isValid.role })
@@ -67,16 +66,16 @@ export const systemAuthController = new Elysia({prefix: Routes.SYSTEM_AUTH})
 
         } catch (error) {
             console.error("Error generating JWT token:", error);
-            throw new Error("Failed to generate system access JWT token");
+            return status(500, new ApiErrorBuilder("500","Failed to generate system access JWT token").getError());
         }
     })
     .post(SystemAuthControllerRoutes.POST_REFRESH_AUTH_TOKEN, async ({ jwt }) => {
         try {
             const res = await jwt.verify(systemRefreshToken?.actions?.getters?.getSecret?.());
-            if(!res) return { code: 400, message: "accessToken not found"}
+            if(!res) return new ApiErrorBuilder("401", "accessToken not found")
             console.log("🚀 ~ .post ~ res:", res)
         } catch (error) {
             console.error("Error verifying JWT token:", error);
-            throw new Error("Invalid refresh token");
+            return new ApiErrorBuilder("498","Invalid refresh token").getError();
         }
     })
