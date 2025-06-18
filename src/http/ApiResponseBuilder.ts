@@ -14,19 +14,24 @@ const defaultMessages: Record<HttpCode["code"], string> = {
     "201": "Created"
 };
 
-export class ApiErrorBuilder {
+export class ApiResponseBuilder {
     private code: HttpCode["code"];
     private message: string;
+    private data: any
 
-    constructor(code: HttpCode["code"], message?: string) {
+    constructor(code: HttpCode["code"], message?: string, data?: any) {
         this.code = code;
         this.message = message || defaultMessages[code]; // Usar mensaje predeterminado si no se proporciona
+        this.data = data
     }
 
     getError() {
-        return {
-            code: this.code,
-            message: this.message
-        };
+        let res: HttpCode & {data?: any} = {
+            code: this.code
+        }
+        if(this.message) res.message = this.message
+        if(this.data) res.data = this.data 
+        return res
+       
     }
 }
