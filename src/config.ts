@@ -15,4 +15,4 @@ export const apiURL = `${BASE_URL}/${API_SUBDOMAIN}/${APP_DOMAIN}/${API_VERSION}
 export const apiPath = `/${API_SUBDOMAIN}/${APP_DOMAIN}/${API_VERSION}`;
 
 //DB URLs
-export const DB = "v1";
+export const DB = "v12";
