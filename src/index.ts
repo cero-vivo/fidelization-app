@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
 import { swagger } from '@elysiajs/swagger'
-import { registerController } from "./modules/auth/infrastructure/register.controller";
+import { registerController } from "./modules/auth/infrastructure/controllers/RegisterController";
 import { walletController } from "./modules/wallet/infrastructure/controller/WalletController";
 import { apiPath, PORT } from "./config";
 import { systemAuthController } from "./api/auth/infrastructure/SystemAuthController";
