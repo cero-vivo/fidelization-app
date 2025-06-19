@@ -2,7 +2,7 @@ import Elysia from "elysia";
 import jwt, { JWTOption } from "@elysiajs/jwt";
 import { SystemJwtToken } from "../application/SystemJwtTokenActions";
 import { SystemAuthControllerRoutes } from "./ISystemAuthControllerRoutes";
-import { createApiKeyService } from "./SystemApiKeyService";
+import { systemApiKeyGateway } from "./SystemApiKeyGateway";
 import { Routes } from "../../../routes/routes";
 import { ApiResponseBuilder } from "../../../http/ApiResponseBuilder";
 import { ISystemTokenAlgorithm } from "../model/entities/ISystemJwtToken";
@@ -41,7 +41,7 @@ export const systemAuthController = new Elysia({ prefix: Routes.SYSTEM_AUTH })
 	.post(SystemAuthControllerRoutes.POST_GET_AUTH_TOKEN, async ({ accessJwt, refreshJwt, headers, status }) => {
 		try {
 
-			const apiKeyService = createApiKeyService();
+			const apiKeyService = systemApiKeyGateway();
 
 			const apiKey = headers?.["x-api-key"];
 
