@@ -32,13 +32,12 @@ export interface IRegisterValidations {
     isValidEmail: (email: string) => ValidationResult
     isValidUsername: (username: string) => ValidationResult
     isValidPassword: (password: string) => ValidationResult
-    isValidConfirmPassword: (password: string, confirmPassword: string) => boolean
 }
 export interface IRegisterCredential {
+    fullname: string
     username: string
     email: string
     password: string
-    confirmPassword: string
 }
 export interface IAuthActions {
     login: (cred: ILoginCredential) => Promise<any>
