@@ -1,9 +1,9 @@
 import { ID } from "node-appwrite";
 import { appWriteClient, appWriteSDK } from "../../../../config/clients";
 import { IRegisterCredentialEmailPass } from "../../domain/actions/IRegisterActions";
-import { IRegisterGateway } from "./IRegisterGateway";
+import { IRegisterGateway } from "../../domain/gateway/IRegisterGateway";
 
-export const registerGateway = (): IRegisterGateway => {
+export const appWriteRegisterGateway = (): IRegisterGateway => {
 
     const usersClient = appWriteClient
     const usersSDK = appWriteSDK
@@ -23,8 +23,6 @@ export const registerGateway = (): IRegisterGateway => {
             } catch (e) {
                 return e
             }
-
-        },
-        registerProvider: async () => null
+        }
     }
 }

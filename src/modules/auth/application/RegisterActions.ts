@@ -1,25 +1,39 @@
-import { IRegisterActions, IRegisterCredentialEmailPass, IRegisterValidations } from "../domain/actions/IRegisterActions"
-import { IRegisterGateway } from "../infrastructure/gateways/IRegisterGateway"
-import { registerGateway } from "../infrastructure/gateways/RegisterGateway"
+import { ValidationResult } from "../../global.types"
+import { IRegisterCredentialEmailPass, IRegisterValidations } from "../domain/actions/IRegisterActions"
 
-export const registerActions = (): IRegisterActions => {
-
-	const gateway: IRegisterGateway = registerGateway()
+export const registerActions = (): IRegisterValidations => {
 
     return {
-        registerEmailPass: async (credentials: IRegisterCredentialEmailPass) => {
-            try {
-                const result = await gateway?.registerEmailPass(credentials)
-                return {
-					code: result.code,
-					type: result?.type,
-					message: JSON.parse(result.response)?.message
-				}
-            } catch (e) {
-                return e
+        isValidEmail: (email: string) => {
+            const emailRegexValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+            const response: ValidationResult = {
+                errors: ["Invalid format"],
+                isValid: emailRegexValidation.test(email)
+            }
+            return response
+        },
+        isValidPassword: (password: string) => {
+
+            const passwordRegexValidation = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+            const response: ValidationResult = {
+                errors: ["Invalid format"],
+                isValid: passwordRegexValidation.test(password)
+
             }
 
+            return response
         },
-		 registerProvider: async () => null
+        isValidPin: (pin: string) => {
+            const pinRegex = /^\d{6}$/;
+        
+            const response: ValidationResult = {
+                errors: ["Invalid format"],
+                isValid: pinRegex.test(pin)
+            };
+        
+            return response;
+        }
     }
 }
