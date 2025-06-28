@@ -1,10 +1,10 @@
 import Elysia from "elysia";
 import { ApiResponseBuilder } from "../../../../../http/ApiResponseBuilder";
-import { appWriteRegisterGateway } from "../../gateways/register/AppWriteRegisterGateway";
-import { IRegisterGateway } from "../../../domain/gateway/IRegisterGateway";
 import { LoginControllerRoutes, LoginEmailPassBody } from "./ILoginController";
 import { ILoginGateway } from "../../../domain/gateway/ILoginGateway";
 import { appWriteLoginGateway } from "../../gateways/login/AppWriteLoginGateway";
+import { Account } from "node-appwrite";
+import { appWriteLoginClient, appWriteServerClient } from "../../../../../config/clients";
 
 const gateway: ILoginGateway = appWriteLoginGateway()
 
@@ -24,8 +24,10 @@ export const loginController = new Elysia({ prefix: '/auth' })
     }, {
         body: LoginEmailPassBody,
     })
-    .get("get-user", async () => {
-        return {
-            "message": "Holaaaaa"
-        }
+    .get("get-user", async (req) => {
+        const account = await new Account(appWriteLoginClient)       
+        const user = await account.get() 
+
+        return user
     })
+    

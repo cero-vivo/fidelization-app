@@ -1,3 +1,3 @@
-import { appWriteClient, appWriteSDK } from "./clients/index"
+import { appWriteServerClient, appWriteSDK } from "./clients/index"
 
-export const appWriteDBs = new appWriteSDK.Databases(appWriteClient)
+export const appWriteDBs = new appWriteSDK.Databases(appWriteServerClient)

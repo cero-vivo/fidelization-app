@@ -1,11 +1,11 @@
 import { Account, ID } from "node-appwrite";
-import { appWriteClient } from "../../../../../config/clients";
+import { appWriteServerClient } from "../../../../../config/clients";
 import { IRegisterCredentialEmailPass } from "../../../domain/actions/IRegisterActions";
 import { IRegisterGateway } from "../../../domain/gateway/IRegisterGateway";
 
 export const appWriteRegisterGateway = (): IRegisterGateway => {
 
-    const usersClient = appWriteClient
+    const usersClient = appWriteServerClient
 
     return {
         registerEmailPass: async (credentials: IRegisterCredentialEmailPass) => {
