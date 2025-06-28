@@ -1,9 +1,4 @@
 import { IHttpResponse } from "../../../../http/model/entities/IHttpResponse"
-import { IECommerceAddressActions } from "../../../model/actions/IECommerceAddressActions"
-import { IEcommerceCartActions } from "../../../model/actions/IECommerceCartActinos"
-import { IECommerceOrderActions } from "../../../model/actions/IECommerceOrderActions"
-import { IECommercePaymentActions } from "../../../model/actions/IECommercePaymentActions"
-import { IECommerceProductActions } from "../../../model/actions/IECommerceProductActions"
 import { IEcommerceProduct } from "../../../model/entities/IECommerceProduct"
 
 export interface IEcommerceProductGatewayResponses {
