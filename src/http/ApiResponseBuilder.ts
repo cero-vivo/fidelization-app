@@ -1,9 +1,11 @@
+import { HttpStatusCode } from "../modules/http/model/entities/IHttpResponse";
+
 export type HttpCode = {
-    code: "500" | "400" | "401" | "403" |"404" | "498" | "200" | "201",
+    code: HttpStatusCode
     message?: string // Mensaje opcional
 };
 
-const defaultMessages: Record<HttpCode["code"], string> = {
+const defaultMessages: Partial<Record<HttpCode["code"], string>> = {
     "500": "Internal Server Error",
     "400": "Bad Request",
     "401": "Unauthorized",
@@ -16,12 +18,12 @@ const defaultMessages: Record<HttpCode["code"], string> = {
 
 export class ApiResponseBuilder {
     private code: HttpCode["code"];
-    private message: string;
+    private message?: string;
     private data: any
 
     constructor(code: HttpCode["code"], message?: string, data?: any) {
         this.code = code;
-        this.message = message || defaultMessages[code]; // Usar mensaje predeterminado si no se proporciona
+        this.message = message || defaultMessages[code] || undefined
         this.data = data
     }
 
