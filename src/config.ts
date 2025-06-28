@@ -13,3 +13,6 @@ export const apiURL = `${BASE_URL}/${API_SUBDOMAIN}/${APP_DOMAIN}/${API_VERSION}
 
 // Path base que usarán los controladores en Elysia (sin host)
 export const apiPath = `/${API_SUBDOMAIN}/${APP_DOMAIN}/${API_VERSION}`;
+
+//DB URLs
+export const DB = "v14";
