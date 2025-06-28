@@ -1,7 +1,7 @@
 import { ValidationResult } from "../../global.types"
-import { IRegisterCredentialEmailPass, IRegisterValidations } from "../domain/actions/IRegisterActions"
+import { IAuthActions } from "../domain/actions/IAuthActions"
 
-export const registerActions = (): IRegisterValidations => {
+export const authActions = (): IAuthActions => {
 
     return {
         isValidEmail: (email: string) => {

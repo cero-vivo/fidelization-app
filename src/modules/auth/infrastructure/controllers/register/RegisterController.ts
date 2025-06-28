@@ -1,9 +1,9 @@
-import Elysia, { t } from "elysia";
+import Elysia from "elysia";
 import { RegisterControllerRoutes, RegisterEmailPassBody } from "./IRegisterController";
-import { registerActions } from "../../application/RegisterActions";
-import { ApiResponseBuilder } from "../../../../http/ApiResponseBuilder";
-import { appWriteRegisterGateway } from "../gateways/AppWriteRegisterGateway";
-import { IRegisterGateway } from "../../domain/gateway/IRegisterGateway";
+import { ApiResponseBuilder } from "../../../../../http/ApiResponseBuilder";
+import { appWriteRegisterGateway } from "../../gateways/register/AppWriteRegisterGateway";
+import { IRegisterGateway } from "../../../domain/gateway/IRegisterGateway";
+import { IHttpResponse } from "../../../../http/model/entities/IHttpResponse";
 
 const gateway: IRegisterGateway = appWriteRegisterGateway()
 
@@ -18,9 +18,10 @@ export const registerController = new Elysia({ prefix: '/auth' })
         })
         
         return status(res.code, new ApiResponseBuilder(res.code, res.payload?.message).getError())
-       } catch(er) {
-            return status(500, new ApiResponseBuilder(500).getError())
+
+       } catch(error: any) {
+            return status(error?.code, new ApiResponseBuilder(error?.code, error?.payload?.message).getError())
        }
     }, {
-        body: RegisterEmailPassBody,
+        body: RegisterEmailPassBody
     })

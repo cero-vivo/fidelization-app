@@ -1,7 +1,8 @@
-import { ILoginCredential } from "./ILoginActions"
-import { IRegisterCredential } from "./IRegisterActions"
+import { ValidationResult } from "../../../global.types"
 
 export interface IAuthActions {
-    login: (cred: ILoginCredential) => Promise<any>
-    register: (cred: IRegisterCredential) => Promise<any>
+    //VALIDATIONS
+    isValidEmail: (email: string) => ValidationResult
+    isValidPassword: (password: string) => ValidationResult
+    isValidPin: (pin: string) => ValidationResult
 }

@@ -1,15 +1,10 @@
-export interface ILoginUsernamePassword {
-    username: string
-    password: string
-}
-export interface ILoginEmailPassword {
+import { ValidationResult } from "../../../global.types"
+
+export interface ILoginEmailPasswordCredentials {
     email: string
     password: string
 }
-export type ILoginCredential = ILoginUsernamePassword | ILoginEmailPassword
-export interface ILoginActions {
-    login: (cred: ILoginCredential) => Promise<any>
-}
+
 export interface ILoginValidations {
-    isValidEmail: (email: string) => boolean
+    isValidEmail: (email: string) => ValidationResult
 }

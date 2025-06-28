@@ -2,10 +2,12 @@ type WithMessage = {
     payload?: Record<string, any> & { message: string };
 };
 
-export interface IHttpResponse<T extends WithMessage = WithMessage> {
+export interface IHttpResponse<T> {
     code: HttpStatusCode;
     success: boolean;
-    payload: T["payload"] | undefined;
+    payload: {
+        message: string,
+    } & T
 }
 
 export type HttpStatusCode =
